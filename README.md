@@ -1,1 +1,1 @@
-Provisional README. Work in progress, will work on it as we complete parts of the project
+Provisional README. Work in progress, will edit while we work on the project.  
