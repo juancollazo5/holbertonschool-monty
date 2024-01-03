@@ -13,9 +13,9 @@ int main(int argc, char *argv[])
 	/* Attempt to open the file */
 	FILE *file = fopen(argv[1], "r");
 
-	if (file == NULL)
+	if (file == NULL) /* if the file trying to open is NULL */
 	{
-	fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+	fprintf(stderr, "Error: Can't open file %s\n", argv[1]); /* print error message and exit */
 	exit(EXIT_FAILURE);
 	}
 
