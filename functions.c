@@ -1,6 +1,12 @@
 #include "monty.h"
 
-/* Function to read and process line
+/**
+	* readprocess_line - Reads and process each line of a file
+	* @line: Line read from a file
+	* @stack: Modify stack within function
+*/
+
+
 void readprocess_line(char *line, stack_t **stack)
 	{
 	char *opcode;
@@ -23,7 +29,7 @@ void readprocess_line(char *line, stack_t **stack)
 	if (strcmp(opcode, "push") == 0)
 	{
 
-	/* Gets the argument for "push")
+	/* Gets the argument for "push" */
 	char *arg = strtok(NULL, " \t\n");
 
 	/* Verify if argument is valid */
