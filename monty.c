@@ -44,13 +44,6 @@ if (file == NULL) /* if the file trying to open is NULL */
 	readprocess_line(line, &stack); /* Process each line provided */
 	}
 
-	/* Look up the opcode in the instruction table */
-	instruction_t *instruction = lookup_opcode(line);
-
-	/* Execute the instruction */
-	instruction->f(&stack, atoi(line + 1));
-	}
-
 	free(line);
 	free_stack(stack);
 	fclose(file);
