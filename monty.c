@@ -1,12 +1,13 @@
 #include "monty.h"
 
+void readprocess_line(char *line stack_t **stack);
+
 int main(int argc, char *argv[])
 {
 
-stack_t *stack = NULL;
 char *line = NULL;
-size_t line_length = 0;
-
+size_t len = 0;
+stack_t *stack = NULL;
 
 /* checks the command line arguments to ensure only one file is provided. If not print error message */
 
@@ -25,28 +26,26 @@ fprintf(stderr, "Error: Can't open file %s\n", argv[1]); /* print error message 
 exit(EXIT_FAILURE);
 }
 
-while (getline(&line, &line_length, file) != -1)
-{
-/* Strip whitespace from the line */
-line = strtok(line, " \t\n");
+	char *line = NULL;
+	size_t len = 0;
+	stack_t *stack = NULL;
 
-/* Check if the line is empty */
-if (line == NULL)
-continue;
 
-/* Check if the line is a comment */
-if (line[0] == '#')
-continue;
+	while (getline(&line, &len, file) != -1) /* Reads the file line by line */
+	{
+	readprocess_line(line, &stack); /* Process each line provided */
+	}
 
-/* Look up the opcode in the instruction table */
-instruction_t *instruction = lookup_opcode(line);
+	/* Look up the opcode in the instruction table */
+	instruction_t *instruction = lookup_opcode(line);
 
-/* Execute the instruction */
-instruction->f(&stack, atoi(line + 1));
+	/* Execute the instruction */
+	instruction->f(&stack, atoi(line + 1));
+	}
+
+	free(line);
+	free_stack(stack);
+	fclose(file);
+	return 0;
 }
 
-free_stack(stack);
-fclose(file);
-
-return (0);
-}
