@@ -17,7 +17,12 @@ void push(stack_t **stack, int n)
 	}
 
 	new_node->n = n;
+	new_node->prev = NULL;
 	new_node->next = *stack;
+
+	if (*stack != NULL)
+		(*stack)->prev = new_node;
+
 	*stack = new_node;
 }
 
@@ -31,19 +36,5 @@ void pall(stack_t *stack)
 	{
 		printf("%d\n", stack->n);
 		stack = stack->next;
-	}
-}
-
-/**
- * free_stack - Frees a stack
- * @stack: Pointer to the top of the stack
- */
-void free_stack(stack_t *stack)
-{
-	while (stack != NULL)
-	{
-		stack_t *temp = stack;
-		stack = stack->next;
-		free(temp);
 	}
 }
