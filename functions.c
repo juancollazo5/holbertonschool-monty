@@ -1,27 +1,24 @@
 #include "monty.h"
 
 /**
-	* readprocess_line - Reads and process each line of a file
-	* @line: Line read from a file
-	* @stack: Modify stack within function
-*/
-
-
+ * readprocess_line - Reads and processes each line of a file
+ * @line: Line read from a file
+ * @stack: Modify stack within function
+ */
 void readprocess_line(char *line, stack_t **stack)
-	{
+{
 	char *opcode;
 	int n;
 
 	/* If line is blank exit */
-	if line[0] == '\n')
-
-	return;
-	}
+	if (line[0] == '\n')
+		return;
 
 	opcode = strtok(line, "\t\n"); /* Extract the opcode from the line */
+
 	if (opcode == NULL) /* Checks if theres an opcode. Otherwise skip line */
 	{
-	return;
+		return;
 	}
 
 	/* Compare and process the opcodes */
@@ -29,13 +26,22 @@ void readprocess_line(char *line, stack_t **stack)
 	if (strcmp(opcode, "push") == 0)
 	{
 
-	/* Gets the argument for "push" */
-	char *arg = strtok(NULL, " \t\n");
+		/* Gets the argument for "push" */
+		char *arg = strtok(NULL, " \t\n");
 
-	/* Verify if argument is valid */
-	if (arg == NULL || !isdigit(*arg))
-	{
-	fprintf(stderr, "Error: push without an interger\n");
-	exit(EXIT_FAILURE);
+		/* Verify if argument is valid */
+		if (arg == NULL || !isdigit(*arg))
+		{
+			fprintf(stderr, "Error: push without an interger\n");
+			exit(EXIT_FAILURE);
+		}
+
+		n = atoi(arg);
+		push(stack, n);
 	}
-
+	else if (strcmp(opcode, "pall") == 0)
+	{
+		pall(*stack);
+	}
+	/* other opcodes */
+}
