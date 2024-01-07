@@ -30,10 +30,6 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	char *line = NULL;
-	size_t len = 0;
-	stack_t *stack = NULL;
-
 	while (getline(&line, &len, file) != -1) /* Reads the file line by line */
 	{
 		readprocess_line(line, &stack); /* Process each line provided */
