@@ -41,5 +41,6 @@ int main(int argc, char *argv[]);
 void readprocess_line(char *line, stack_t **stack);
 void push(stack_t **stack, int n);
 void pall(stack_t *stack);
+void free_stack(stack_t *stack);
 
 #endif
