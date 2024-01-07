@@ -33,3 +33,17 @@ void pall(stack_t *stack)
 		stack = stack->next;
 	}
 }
+
+/**
+ * free_stack - Frees a stack
+ * @stack: Pointer to the top of the stack
+ */
+void free_stack(stack_t *stack)
+{
+	while (stack != NULL)
+	{
+		stack_t *temp = stack;
+		stack = stack->next;
+		free(temp);
+	}
+}
