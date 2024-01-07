@@ -9,6 +9,7 @@ void readprocess_line(char *line, stack_t **stack)
 {
 	char *opcode;
 	int n;
+	static unsigned int line_number = 0;
 
 	/* If line is blank exit */
 	if (line[0] == '\n')
@@ -32,7 +33,7 @@ void readprocess_line(char *line, stack_t **stack)
 		/* Verify if argument is valid */
 		if (arg == NULL || !isdigit(*arg))
 		{
-			fprintf(stderr, "Error: push without an interger\n");
+			fprintf(stderr, "L%d: usage: push integer\n", line_number);
 			exit(EXIT_FAILURE);
 		}
 
