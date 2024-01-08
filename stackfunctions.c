@@ -2,39 +2,60 @@
 
 /**
  * push - Function to push a value to the stack data structure
- * @stack: Pointer to the top of the stack
- * @n: Value to be pushed onto the stack
+ * @head: Pointer to the top of the stack
+ * @counter: line number
  */
-void push(stack_t **stack, int n)
+void push(stack_t **head, unsigned int counter)
 {
-	/* Allocate memory for the new node */
-	stack_t *new_node = malloc(sizeof(stack_t));
+	int i, m = 0, flag = 0;
 
-	if (new_node == NULL)
+	if (bus.arg)
 	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
-
-	new_node->n = n;
-	new_node->prev = NULL;
-	new_node->next = *stack;
-
-	if (*stack != NULL)
-		(*stack)->prev = new_node;
-
-	*stack = new_node;
+		if (bus.arg[0] == '-')
+			m++;
+		for (; bus.arg[m] != '\0'; m++)
+		{
+			if (bus.arg[m] > 57 || bus.arg[m] < 48)
+				flag = 1; }
+		if (flag == 1)
+		{ fprintf(stderr, "L%d: usage: push integer\n", counter);
+			fclose(bus.file);
+			free(bus.content);
+			free_stack(*head);
+			exit(EXIT_FAILURE); }}
+	else
+	{ fprintf(stderr, "L%d: usage: push integer\n", counter);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*head);
+		exit(EXIT_FAILURE); }
+	i = atoi(bus.arg);
+	if (bus.lifi == 0)
+		addnode(head, i);
+	else
+		addqueue(head, i);
 }
 
 /**
- * pall - Function to print all values on the stack
- * @stack: Pointer to the top of the stack
- */
-void pall(stack_t *stack)
+* pall - Function to print all values on the stack
+* @head: pointer to pointer of first node
+* @counter: line counter (not used)
+*
+* Return: none
+*/
+
+void pall(stack_t **head, unsigned int counter)
 {
-	while (stack != NULL)
+	stack_t *h;
+	(void)counter;
+
+	h = *head;
+	if (h == NULL)
+		return;
+
+	while (h)
 	{
-		printf("%d\n", stack->n);
-		stack = stack->next;
+		printf("%d\n", h->n);
+		h = h->next;
 	}
 }

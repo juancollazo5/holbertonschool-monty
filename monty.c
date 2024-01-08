@@ -1,42 +1,53 @@
 #include "monty.h"
+#define _GNU_SOURCE
+
+bus_t bus = {NULL, NULL, NULL, 0};
 
 /**
- * main - Main function for monty interpreter
- * @argc: Number of command line arguments
- * @argv: Name of the file to open
- * Return: 0
- */
+* main - monty code interpreter
+* @argc: argument counter
+* @argv: argument vector
+*
+* Return: 0
+*/
 int main(int argc, char *argv[])
 {
-	char *line = NULL;
-	size_t len = 0;
+	char *content;
+	FILE *file;
+	size_t size = 0;
+	ssize_t read_line = 1;
 	stack_t *stack = NULL;
+	unsigned int counter = 0;
 
-	/* checks the command line arguments to ensure only one file is provided. */
-	/* checks if number of arguments is 2 (program name and file name)*/
 	if (argc != 2)
 	{
-		fprintf(stderr, "USAGE: monty file\n"); /* prints error message then exits */
+		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
 
-	/* Attempt to open the file */
-	FILE *file = fopen(argv[1], "r");
+	file = fopen(argv[1], "r");
+	bus.file = file;
 
-	if (file == NULL) /* if the file trying to open is NULL */
+	if (!file)
 	{
-		/* print error message and exit */
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
 
-	while (getline(&line, &len, file) != -1) /* Reads the file line by line */
+	while (read_line > 0)
 	{
-		readprocess_line(line, &stack); /* Process each line provided */
+		content = NULL;
+		read_line = getline(&content, &size, file);
+		bus.content = content;
+		counter++;
+
+		if (read_line > 0)
+			rpl(content, &stack, counter, file);
+
+		free(content);
 	}
 
-	free(line);
-	free(stack);
+	free_stack(stack);
 	fclose(file);
 	return (0);
 }

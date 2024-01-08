@@ -1,55 +1,39 @@
 #include "monty.h"
 
 /**
- * readprocess_line - Reads and processes each line of a file
- * @line: Line read from a file
- * @stack: Modify stack within function
- */
-void readprocess_line(char *line, stack_t **stack)
+* rpl - read and process lines from the file
+* @content: line to process
+* @stack: pointer to the stack
+* @counter: line number
+* @file: pointer to the input file
+* Return: 0
+*/
+int rpl(char *content, stack_t **stack, unsigned int counter, FILE *file)
 {
-	char *opcode;
-	int n;
-	static unsigned int line_number = 0;
+	instruction_t opst[] = {
+				{"push", push},
+				{"pall", pall}
+				};
+	unsigned int i = 0;
+	char *op;
 
-	/* If line is blank exit */
-	if (line[0] == '\n')
-		return;
-
-	opcode = strtok(line, "\t\n"); /* Extract the opcode from the line */
-
-	if (opcode == NULL) /* Checks if theres an opcode. Otherwise skip line */
+	op = strtok(content, " \n\t");
+	if (op && op[0] == '#')
+		return (0);
+	bus.arg = strtok(NULL, " \n\t");
+	while (opst[i].opcode && op)
 	{
-		return;
-	}
-
-	/* Compare and process the opcodes */
-
-	if (strcmp(opcode, "push") == 0)
-	{
-
-		/* Gets the argument for "push" */
-		char *arg = strtok(NULL, " \t\n");
-
-		/* Verify if argument is valid */
-		n = atoi(arg);
-		if (n == 0 && arg[0] != '0')
-		{
-			fprintf(stderr, "L%d: usage: push integer\n", line_number);
-			exit(EXIT_FAILURE);
+		if (strcmp(op, opst[i].opcode) == 0)
+		{	opst[i].f(stack, counter);
+			return (0);
 		}
-		push(stack, n);
+		i++;
 	}
-
-	else if (strcmp(opcode, "pall") == 0)
-	{
-		pall(*stack);
-	}
-
-	else
-	{
-		fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
-		exit(EXIT_FAILURE);
-	}
-
-	line_number++;
+	if (op && opst[i].opcode == NULL)
+	{ fprintf(stderr, "L%d: unknown instruction %s\n", counter, op);
+		fclose(file);
+		free(content);
+		free_stack(*stack);
+		exit(EXIT_FAILURE); }
+	return (1);
 }
