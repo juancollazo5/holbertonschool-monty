@@ -8,6 +8,7 @@
 
 void pint(stack_t **head, unsigned int counter)
 {
+/* Print an error and exit if trying to pint from an empty stack */
 	if (*head == NULL)
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", counter);
@@ -16,6 +17,8 @@ void pint(stack_t **head, unsigned int counter)
 		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
-
+/* Print the value of the top node in the stack */
 	printf("%d\n", (*head)->n);
 }
+
+/* others new functions on the next lines */
