@@ -16,23 +16,37 @@ void push(stack_t **head, unsigned int counter)
 		for (; bus.arg[m] != '\0'; m++)
 		{
 			if (bus.arg[m] > 57 || bus.arg[m] < 48)
-				flag = 1; }
+
+		/* Set flag if the argument contains non-digit characters */
+				flag = 1;
+		}
 		if (flag == 1)
-		{ fprintf(stderr, "L%d: usage: push integer\n", counter);
+		{
+			fprintf(stderr, "L%d: usage: push integer\n", counter);
 			fclose(bus.file);
 			free(bus.content);
 			free_stack(*head);
-			exit(EXIT_FAILURE); }}
+			/* Print error and exit if argument is not a valid integer */
+			exit(EXIT_FAILURE); }
+		}
 	else
-	{ fprintf(stderr, "L%d: usage: push integer\n", counter);
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", counter);
 		fclose(bus.file);
 		free(bus.content);
 		free_stack(*head);
-		exit(EXIT_FAILURE); }
+		/* Print error and exit if there is no argument provided */
+		exit(EXIT_FAILURE);
+	}
+	/* Convert the argument to an integer */
 	i = atoi(bus.arg);
+
 	if (bus.lifi == 0)
+
+		/* Add the integer to the stack if lifo mode is set */
 		addnode(head, i);
 	else
+		/* Add the integer to the queue if lifo mode is not set */
 		addqueue(head, i);
 }
 
@@ -47,15 +61,15 @@ void push(stack_t **head, unsigned int counter)
 void pall(stack_t **head, unsigned int counter)
 {
 	stack_t *h;
-	(void)counter;
+	(void)counter; /* Suppress unused parameter warning */
 
-	h = *head;
+	h = *head; /* Set a temporary pointer to the head of the stack */
 	if (h == NULL)
-		return;
+		return; /* If the stack is empty, return without printing anything */
 
 	while (h)
 	{
-		printf("%d\n", h->n);
-		h = h->next;
+		printf("%d\n", h->n); /* Print the value of the current node */
+		h = h->next; /* Move to the next node in the stack */
 	}
 }
