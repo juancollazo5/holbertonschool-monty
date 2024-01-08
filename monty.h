@@ -62,5 +62,6 @@ void push(stack_t **stack, unsigned int counter);
 void free_stack(stack_t *stack);
 void addqueue(stack_t **head, int n);
 void addnode(stack_t **head, int n);
+void pint(stack_t **head, unsigned int counter);
 
 #endif
