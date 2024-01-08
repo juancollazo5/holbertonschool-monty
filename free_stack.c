@@ -12,8 +12,8 @@ void free_stack(stack_t *stack)
 
 	while (stack)
 	{
-		temp = stack;
-		stack = stack->next;
-		free(temp);
+		temp = stack; /* Store the current node in a temporary variable */
+		stack = stack->next; /* Move to the next node in the stack */
+		free(temp); /* Free the memory occupied by the current node */
 	}
 }
