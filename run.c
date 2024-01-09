@@ -21,7 +21,8 @@ int rpl(char *content, stack_t **stack, unsigned int counter, FILE *file)
 	unsigned int i = 0;
 	char *op;
 
-	op = strtok(content, " \n\t"); /* Tokenize the content to extract the operation */
+	/* Tokenize the content to extract the operation */
+	op = strtok(content, " \n\t");
 	if (op && op[0] == '#')
 		return (0); /* Ignore comments (lines starting with '#') */
 	bus.arg = strtok(NULL, " \n\t"); /* Extract the argument of the operation */

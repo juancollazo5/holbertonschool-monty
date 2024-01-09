@@ -38,8 +38,7 @@ void push(stack_t **head, unsigned int counter)
 		/* Print error and exit if there is no argument provided */
 		exit(EXIT_FAILURE);
 	}
-	/* Convert the argument to an integer */
-	i = atoi(bus.arg);
+	i = atoi(bus.arg);  /* Convert the argument to an integer */
 
 	if (bus.lifi == 0)
 

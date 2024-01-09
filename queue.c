@@ -18,7 +18,9 @@ void addqueue(stack_t **head, int n)
 		printf("Error\n");  /* Print an error message if memory allocation fails */
 
 	new_node->n = n; /* Set the data value of the new node */
-	new_node->next = NULL; /* The new node will be the last node, so its next is NULL */
+
+	/* The new node will be the last node, so its next is NULL */
+	new_node->next = NULL;
 
 	if (temp)
 	{
