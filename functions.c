@@ -46,4 +46,44 @@ void pop(stack_t **head, unsigned int counter)
 	free(h); /* Free the memory occupied by the removed top node */
 }
 
+/**
+* swap - swap first two elements of stack
+* @head: first node
+* @counter: line counter
+*/
+
+void swap(stack_t **head, unsigned int counter)
+{
+	stack_t *h;
+	int length = 0, temp;
+
+	h = *head; /* Store the current head of the stack in a temporary variable */
+
+	/* Count the number of elements in the stack */
+	while (h)
+	{
+		h = h->next;
+		length++;
+	}
+	/* Print an error and exit if trying to swap with insufficient elements */
+	if (length < 2)
+	{
+		fprintf(stderr, "L%d: can't swap, stack too short\n", counter);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*head);
+		exit(EXIT_FAILURE);
+	}
+
+	/* Reset the temporary variable to the current head of the stack */
+	h = *head;
+
+	/* Store the value of the first element in a temporary variable */
+	temp = h->n;
+
+	/* Swap the values of the first two elements in the stack */
+	h->n = h->next->n;
+	h->next->n = temp;
+}
+
 /* others new functions on the next lines */
