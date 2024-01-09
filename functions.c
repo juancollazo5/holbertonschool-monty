@@ -30,6 +30,7 @@ void pint(stack_t **head, unsigned int counter)
 void pop(stack_t **head, unsigned int counter)
 {
 	stack_t *h;
+/* Print an error and exit if trying to pop from an empty stack */
 
 	if (*head == NULL)
 	{
@@ -40,9 +41,9 @@ void pop(stack_t **head, unsigned int counter)
 		exit(EXIT_FAILURE);
 	}
 
-	h = *head;
-	*head = h->next;
-	free(h);
+	h = *head; /* Store the current top node in a temporary variable */
+	*head = h->next; /* Update the head pointer to the next node in the stack */
+	free(h); /* Free the memory occupied by the removed top node */
 }
 
 /* others new functions on the next lines */
