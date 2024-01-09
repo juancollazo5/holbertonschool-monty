@@ -86,4 +86,16 @@ void swap(stack_t **head, unsigned int counter)
 	h->next->n = temp;
 }
 
+/**
+ * nop - do nothing
+ * @head: pointer to pointer of first node
+ * @counter: line counter
+ */
+
+void nop(stack_t **head, unsigned int counter)
+{
+	(void) counter;
+	(void) head;
+}
+
 /* others new functions on the next lines */
