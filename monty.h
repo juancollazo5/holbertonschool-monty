@@ -53,6 +53,7 @@ typedef struct bus_s
 	int lifi;
 }  bus_t;
 extern bus_t bus;
+bus_t bus = {NULL, NULL, NULL, 0}; /* Hold shared data across functions */
 
 /* Functions prototypes */
 
@@ -66,5 +67,6 @@ void pint(stack_t **head, unsigned int counter);
 void pop(stack_t **head, unsigned int counter);
 void swap(stack_t **head, unsigned int counter);
 void nop(stack_t **head, unsigned int counter);
+void add(stack_t **head, unsigned int counter);
 
 #endif
