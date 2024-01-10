@@ -87,49 +87,6 @@ void swap(stack_t **head, unsigned int counter)
 }
 
 /**
- * add - add first 2 elements of the stack
- * @head: pointer to pointer to first node
- * @counter: line counter
- */
-
-void add(stack_t **head, unsigned int counter)
-{
-	stack_t *h;
-	int length = 0, temp;
-
-	h = *head;
-	while (h)
-	{
-		h = h->next;
-		length++;
-	}
-
-	/* Check if the stack has at least two elements */
-	if (length < 2)
-	{
-
-	/* Print an error and exit if trying to add with insufficient elements */
-		fprintf(stderr, "L%d: can't add, stack too short\n", counter);
-		fclose(bus.file);
-		free(bus.content);
-		free_stack(*head);
-		exit(EXIT_FAILURE);
-	}
-	h = *head; /* Reset the temporary variable to the current head of the stack */
-
-	/* Calculate the sum of the first two elements in the stack */
-	temp = h->n + h->next->n;
-
-	/* Update the value of the second element with the sum */
-	h->next->n = temp;
-	
-	/* Update the head pointer to point to the second element */
-	*head = h->next;
-
-	free(h);
-}
-
-/**
  * nop - do nothing
  * @head: pointer to pointer of first node
  * @counter: line counter
