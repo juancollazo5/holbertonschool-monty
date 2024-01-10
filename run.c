@@ -16,7 +16,8 @@ int rpl(char *content, stack_t **stack, unsigned int counter, FILE *file)
 				{"pint", pint},
 				{"pop", pop},
 				{"swap", swap},
-				{"nop", nop},
+				{"add", add},
+				{"nop", nop}
 				};
 	unsigned int i = 0;
 	char *op;
