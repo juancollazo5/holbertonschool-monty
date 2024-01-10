@@ -53,7 +53,7 @@ typedef struct bus_s
 	int lifi;
 }  bus_t;
 extern bus_t bus;
-bus_t bus = {NULL, NULL, NULL, 0}; /* Hold shared data across functions */
+
 
 /* Functions prototypes */
 
